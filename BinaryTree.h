@@ -9,7 +9,7 @@ struct Node {
     Node* left;
     Node* right;
     Node* parent;
-    Node(int data1) {
+    Node(string data1 = 0) {
         data = data1;
         counter = 1;
         left = right = parent = NULL;
@@ -20,16 +20,17 @@ class BinaryTree {
     public:
         BinaryTree();
         ~BinaryTree();
-        bool searchWord(string word);
+        void searchWord(string word);
         void insertWord(string word);
         void deleteWord(string word);
         void rangeSearch();
     private:
         int nodeCount;
         Node* root;
-        Node* exists(string word);
-        void rangeSearchHelper(Node* root);
-        void destructorHelper();
+        bool exists(string word);
+        Node* getNode(string word);
+        void rangeSearchHelper(Node* node);
+        void destructorHelper(Node* node);
 };
 
 #endif
