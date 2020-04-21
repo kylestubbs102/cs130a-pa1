@@ -45,7 +45,7 @@ bool BinaryTree::exists(string word) {
 }
 
 Node* BinaryTree::getNode(string word) {
-    Node* temp = new Node;
+    Node* temp = new Node; //memory problem somewhere here
     temp = root;
     while (temp) {
         if (word.compare(temp->data) < 0)
@@ -72,7 +72,7 @@ void BinaryTree::insertWord(string word) {
         cout << word << " inserted, new count = " << 
                     temp->counter << endl;
         temp = NULL;
-        delete temp;
+        free(temp);
         return;
     }
     temp = root;
@@ -99,7 +99,7 @@ void BinaryTree::insertWord(string word) {
         }
     }
     temp = NULL;
-    delete temp;
+    free(temp);
     cout << word << " inserted, new count = 1" << endl;
     nodeCount++;
 }
