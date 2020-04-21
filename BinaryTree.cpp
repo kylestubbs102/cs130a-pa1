@@ -22,11 +22,15 @@ void BinaryTree::destructorHelper(Node* node) {
 
 void BinaryTree::searchWord(string word) {
     Node* temp = getNode(word);
-    if (temp)
+    if (temp) {
         cout << word << " found, count = "
-                    << temp->counter << endl;
-    else
+                << temp->counter << endl;
+        temp = NULL;
+        delete temp;
+    }
+    else {
         cout << word << " not found" << endl;
+    }
 }
 
 bool BinaryTree::exists(string word) {
