@@ -21,14 +21,16 @@ class BinaryTree {
         BinaryTree();
         ~BinaryTree();
         void searchWord(string word);
-        void insertWord(string word);
-        void deleteWord(string word);
+        void insertWord(string word, bool start);
+        void deleteWord(string word, Node*& node);
         void rangeSearch();
+	Node*& getRoot();
     private:
         int nodeCount;
         Node* root;
         bool exists(string word);
         Node* getNode(string word);
+	Node* getSuccessorNode(string word);
         void rangeSearchHelper(Node* node);
         void destructorHelper(Node* node);
 };

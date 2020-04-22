@@ -21,13 +21,10 @@ int main(int argv, char** argc) {
 
 	BinaryTree bt;
 	while (getline (wordList, line) && (line.length() > 0)) {
-		bt.insertWord(line);
+		bt.insertWord(line, true);
 	}
 
 	bt.rangeSearch();
-	bt.searchWord("pose");
-	bt.searchWord("zymes");
-	bt.insertWord("zymet");
-	bt.insertWord("zymer");
-	bt.insertWord("zymes");
+	bt.deleteWord("zonation", bt.getRoot());
+	bt.rangeSearch();
 }
