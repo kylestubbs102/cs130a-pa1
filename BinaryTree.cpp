@@ -134,8 +134,8 @@ void BinaryTree::insertWord(string word, bool start) { //maybe combine to one pr
     nodeCount++;
 }
 
-void BinaryTree::deleteWord(string word, Node*& node) {
-	if (!node || !exists(word))
+void BinaryTree::deleteWord(string word, Node*& node) { //eventually pass in third parameter to account for
+	if (!node || !exists(word))			//repeats, allowing recursion and better prints
 		return;
 	if (word.compare(node->data) > 0)
 		deleteWord(word, node->right);
@@ -144,7 +144,7 @@ void BinaryTree::deleteWord(string word, Node*& node) {
 	else {
 		if (node->counter > 1) {
 			node->counter--;
-			//cout << word << 
+			cout << word << " deleted, new count = " << node->counter << endl;
 			return;
 		}
 		if (!node->left && !node->right) {
@@ -227,6 +227,7 @@ void BinaryTree::deleteWord(string word, Node*& node) {
 			//node = NULL;
 			delete node;
 		}
+		cout << word << " deleted" << endl;
 	}
 
 }

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "BinaryTree.h"
+#include "HashTable.h"
 using namespace std;
 
 int main(int argv, char** argc) {
@@ -19,12 +20,33 @@ int main(int argv, char** argc) {
 		return 1;
 	}
 
-	BinaryTree bt;
+	HashTable ht;
+	while (getline (wordList, line) && (line.length() > 0)) {
+		ht.insertWord(line, true);
+	}
+
+	ht.searchWord("intimidation");
+	ht.searchWord("zoo");
+	ht.searchWord("asdfasdf");
+	ht.insertWord("intimidation", false);
+	ht.insertWord("zoo", false);
+	ht.insertWord("asdfadfadf", false);
+	ht.deleteWord("intimidation");
+	ht.deleteWord("zoo");
+	ht.deleteWord("asdfasdf");
+	ht.searchWord("intimidation");
+	ht.searchWord("zoo");
+	ht.searchWord("asdfasdf");
+	ht.rangeSearch();
+
+	/*BinaryTree bt;
 	while (getline (wordList, line) && (line.length() > 0)) {
 		bt.insertWord(line, true);
 	}
 
 	bt.rangeSearch();
-	bt.deleteWord("zonation", bt.getRoot());
-	bt.rangeSearch();
+	bt.deleteWord("broadcasting", bt.getRoot());
+	bt.deleteWord("hospitalize", bt.getRoot());
+	bt.deleteWord("britts", bt.getRoot());
+	bt.deleteWord("runner", bt.getRoot());*/
 }
