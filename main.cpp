@@ -13,7 +13,7 @@ int main(int argv, char** argc) {
 
 	ifstream wordList;
 	string line;
-	
+	cout << argv << " arguments" << endl;	
 	wordList.open("PA1_dataset.txt");
 	if (!wordList) {
 		cout << "could not open file";
