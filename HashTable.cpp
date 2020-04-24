@@ -1,12 +1,13 @@
 #include <iostream>
 #include "HashTable.h"
 #include <string>
+#include <cstring>
+#include <algorithm>
 using namespace std;
 
 HashTable::HashTable() {
-	tableSize = 10000;
+	tableSize = 13627;
 	table = new arrayOfVectors[tableSize];
-	counter = 0;
 }
 
 HashTable::~HashTable() {
@@ -14,7 +15,8 @@ HashTable::~HashTable() {
 }
 
 void HashTable::searchWord(string word) {
-	int hash = hashFunction((char)word);
+	char* str = strcpy(new char[word.length() + 1], word.c_str());
+	int hash = hashFunction(str);
 	for ( arrayOfVectors::iterator it = table[hash].begin(); it != table[hash].end(); it++ ) {
 		if ( it->first == word ) {
 			cout << word << " found, count = " << it->second << endl;
@@ -25,7 +27,8 @@ void HashTable::searchWord(string word) {
 }
 
 void HashTable::insertWord(string word, bool start) {
-	int hash = hashFunction((char)word);
+	char* str = strcpy(new char[word.length() + 1], word.c_str());
+	int hash = hashFunction(str);
 	bool found = false;
 	int count = 0;
 	for ( arrayOfVectors::iterator it = table[hash].begin(); it != table[hash].end(); it++ ) {
@@ -36,16 +39,15 @@ void HashTable::insertWord(string word, bool start) {
 	}
 	if (!found) {
 		table[hash].push_back( make_pair(word, 1) );
-		counter++;
 		count = 1;
-		cout << counter << endl;
 	}
 	if (!start)
 		cout << word << " inserted, new count = " << count << endl;
 }
 
 void HashTable::deleteWord(string word) {
-	int hash = hashFunction((char)word);
+	char* str = strcpy(new char[word.length() + 1], word.c_str());
+	int hash = hashFunction(str);
 	int count = 0;
 	for ( arrayOfVectors::iterator it = table[hash].begin(); it != table[hash].end(); it++ ) {
 		if ( it->first == word ) {
@@ -65,21 +67,27 @@ void HashTable::deleteWord(string word) {
 		cout << word << " deleted" << endl;
 }
 
-void HashTable::rangeSearch() {
-	int count = 0;
-	int count2 = 0;
+void HashTable::rangeSearch(string start, string end) {
+	vector<string> wordList;
 	for ( int i = 0; i < tableSize; i++ ) {
-		if (table[i].size() > 0)
-			count2++;
+		for ( arrayOfVectors::iterator it = table[i].begin(); it != table[i].end(); it++ ) {
+			wordList.push_back(it->first);
+		}
 	}
-	cout << count << endl;
-	cout << count2 << endl;
+	sort(wordList.begin(), wordList.end());
+	for ( vector<string>::iterator it = wordList.begin(); it->compare(end) <= 0; it++ ) {
+		if (it->compare(start) >= 0)
+			cout << *it << endl;
+	}
 }
 
-int HashTable::hashFunction(const char str) {
-	int hash = 0;
-	for ( int i = 0; i < word.length(); i++ ) {
-		hash += (i+1)*(int)word[i];
+unsigned HashTable::hashFunction(const char* str) {
+	unsigned hash = 41;
+	unsigned prime = 36277;
+	unsigned prime2 = 25889;
+	for ( int i = 0; i < strlen(str); i++ ) {
+		hash += (i+1)*(int)str[i];
+		hash = (hash*prime) ^ (prime2*(int)str[i]); 
 	}
 	hash %= tableSize;
 	return hash;

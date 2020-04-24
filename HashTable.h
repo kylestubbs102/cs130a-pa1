@@ -14,13 +14,11 @@ class HashTable {
 		void searchWord(string word);
 		void insertWord(string word, bool start);
 		void deleteWord(string word);
-		void rangeSearch(); //add parameters to all of these later if needed
+		void rangeSearch(string start, string end);
 	private:
 		arrayOfVectors* table;
 		int tableSize;
-		int counter; //used for testing
-		int hashFunction(const char* str);
-	//array of list(pair)
+		unsigned hashFunction(const char* str);
 	
 };
 

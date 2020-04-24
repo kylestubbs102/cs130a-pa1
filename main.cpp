@@ -21,26 +21,9 @@ int main(int argv, char** argc) {
 	}
 
 	HashTable ht;
+	BinaryTree bt;
 	while (getline (wordList, line) && (line.length() > 0)) {
 		ht.insertWord(line, true);
-	}
-
-	ht.searchWord("intimidation");
-	ht.searchWord("zoo");
-	ht.searchWord("asdfasdf");
-	ht.insertWord("intimidation", false);
-	ht.insertWord("zoo", false);
-	ht.insertWord("asdfadfadf", false);
-	ht.deleteWord("intimidation");
-	ht.deleteWord("zoo");
-	ht.deleteWord("asdfasdf");
-	ht.searchWord("intimidation");
-	ht.searchWord("zoo");
-	ht.searchWord("asdfasdf");
-	ht.rangeSearch();
-
-	/*BinaryTree bt;
-	while (getline (wordList, line) && (line.length() > 0)) {
 		bt.insertWord(line, true);
 	}
 
@@ -48,5 +31,5 @@ int main(int argv, char** argc) {
 	bt.deleteWord("broadcasting", bt.getRoot());
 	bt.deleteWord("hospitalize", bt.getRoot());
 	bt.deleteWord("britts", bt.getRoot());
-	bt.deleteWord("runner", bt.getRoot());*/
+	bt.deleteWord("runner", bt.getRoot());
 }
