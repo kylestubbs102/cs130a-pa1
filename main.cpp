@@ -27,9 +27,9 @@ int main(int argv, char** argc) {
 		bt.insertWord(line, true);
 	}
 
-	bt.rangeSearch();
-	bt.deleteWord("broadcasting", bt.getRoot());
-	bt.deleteWord("hospitalize", bt.getRoot());
-	bt.deleteWord("britts", bt.getRoot());
-	bt.deleteWord("runner", bt.getRoot());
+	bt.deleteWord("broadcasting", bt.getRoot(), false);
+	bt.deleteWord("hospitalize", bt.getRoot(), false);
+	bt.deleteWord("britts", bt.getRoot(), false);
+	bt.deleteWord("runner", bt.getRoot(), false);
+	bt.rangeSearch("hospitalization", "hot");
 }

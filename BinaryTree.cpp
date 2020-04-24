@@ -59,33 +59,6 @@ Node* BinaryTree::getNode(string word) {
     return NULL;
 }
 
-Node* BinaryTree::getSuccessorNode(string word) { //can probably remove this later
-	Node* node = getNode(word);
-	if (!node)
-		return NULL;
-	if (node->right == NULL) {
-		while (node->data != root->data) {
-			if (node->parent->data.compare(node->data) > 0)
-				return node->parent;
-			node = node->parent;
-		}
-		node = NULL;
-		delete node;
-		return NULL;
-	}
-	else {
-		node = node->right;
-		if (!node)
-			return node;
-		while (node->left) {
-			node = node->left;
-		}
-		return node;
-	}
-	node = NULL;
-	delete node;
-}
-
 void BinaryTree::insertWord(string word, bool start) { //maybe combine to one print statement later
     if (root == NULL) {
         root = new Node(word);
@@ -134,15 +107,15 @@ void BinaryTree::insertWord(string word, bool start) { //maybe combine to one pr
     nodeCount++;
 }
 
-void BinaryTree::deleteWord(string word, Node*& node) { //eventually pass in third parameter to account for
-	if (!node || !exists(word))			//repeats, allowing recursion and better prints
+void BinaryTree::deleteWord(string word, Node*& node, bool isSwitched) {
+	if (!node || !exists(word))
 		return;
 	if (word.compare(node->data) > 0)
-		deleteWord(word, node->right);
+		deleteWord(word, node->right, false);
 	else if (word.compare(node->data) < 0)
-		deleteWord(word, node->left);
+		deleteWord(word, node->left, false);
 	else {
-		if (node->counter > 1) {
+		if (node->counter > 1 && !isSwitched) {
 			node->counter--;
 			cout << word << " deleted, new count = " << node->counter << endl;
 			return;
@@ -168,7 +141,7 @@ void BinaryTree::deleteWord(string word, Node*& node) { //eventually pass in thi
 			}
 			node->data = successor->data;
 			node->counter = successor->counter;
-			deleteWord(successor->data, successor);
+			deleteWord(successor->data, successor, true);
 			/*if (successor->right) {
 				node->right = successor->right;
 				node->parent = successor->parent;
@@ -227,7 +200,8 @@ void BinaryTree::deleteWord(string word, Node*& node) { //eventually pass in thi
 			//node = NULL;
 			delete node;
 		}
-		cout << word << " deleted" << endl;
+		if (!isSwitched)
+			cout << word << " deleted" << endl;
 	}
 
 }
@@ -236,14 +210,15 @@ Node*& BinaryTree::getRoot() {
 	return root;
 }
 
-void BinaryTree::rangeSearch() {
-    rangeSearchHelper(root);
+void BinaryTree::rangeSearch(string start, string end) {
+    rangeSearchHelper(root, start, end);
 }
 
-void BinaryTree::rangeSearchHelper(Node* node) { //fix this to take parameters later
+void BinaryTree::rangeSearchHelper(Node* node, string start, string end) {
     if (node == NULL)
         return;
-    rangeSearchHelper(node->left);
-    cout << node->data << endl;
-    rangeSearchHelper(node->right);
+    rangeSearchHelper(node->left, start, end);
+    if ( node->data.compare(start) >= 0 && node->data.compare(end) <= 0 ) 
+        cout << node->data << endl;
+    rangeSearchHelper(node->right, start, end);
 }
