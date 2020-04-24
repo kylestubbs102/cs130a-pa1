@@ -9,7 +9,7 @@ int main(int argv, char** argc) {
 
 	ifstream wordList;
 	string line;
-	wordList.open("PA1_dataset.txt");
+	wordList.open("/autograder/submission/PA1_dataset.txt");
 	if (!wordList) {
 		cout << "could not open file";
 		return 1;
