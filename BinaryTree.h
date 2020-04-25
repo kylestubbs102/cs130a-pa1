@@ -22,7 +22,7 @@ class BinaryTree {
         ~BinaryTree();
         void searchWord(string word);
         void insertWord(string word, bool start);
-        void deleteWord(string word, Node*& node, bool isSwitched);
+        void deleteWord(string word, Node* node, bool isSwitched);
         void rangeSearch(string start, string end);
 	Node*& getRoot();
     private:
