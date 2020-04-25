@@ -30,7 +30,6 @@ class BinaryTree {
         Node* root;
         bool exists(string word);
         Node* getNode(string word);
-//	Node* getSuccessorNode(string word);
         void rangeSearchHelper(Node* node, string start, string end);
         void destructorHelper(Node* node);
 };

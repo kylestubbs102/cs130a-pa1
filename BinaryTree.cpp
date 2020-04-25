@@ -45,7 +45,7 @@ bool BinaryTree::exists(string word) {
 }
 
 Node* BinaryTree::getNode(string word) {
-    Node* temp = new Node; //memory problem somewhere here
+    Node* temp = new Node;
     temp = root;
     while (temp) {
         if (word.compare(temp->data) < 0)
@@ -59,7 +59,7 @@ Node* BinaryTree::getNode(string word) {
     return NULL;
 }
 
-void BinaryTree::insertWord(string word, bool start) { //maybe combine to one print statement later
+void BinaryTree::insertWord(string word, bool start) {
     if (root == NULL) {
         root = new Node(word);
         nodeCount = 1;
@@ -129,7 +129,6 @@ void BinaryTree::deleteWord(string word, Node* node, bool isSwitched) {
 				else
 					node->parent->right = NULL;
 			}
-			//node = NULL;
 			delete node;
 		}
 		else if (node->left && node->right) {
@@ -142,53 +141,29 @@ void BinaryTree::deleteWord(string word, Node* node, bool isSwitched) {
 			node->data = successor->data;
 			node->counter = successor->counter;
 			deleteWord(successor->data, successor, true);
-			/*if (successor->right) {
-				node->right = successor->right;
-				node->parent = successor->parent;
-			}
-			else {
-				node->left = successor->left;
-				node->parent = successor->parent;
-			}*/
 			successor = NULL;
 			delete successor;
 		}
 		else if (!node->left && node->right) {
 			if (node == root) {
-				//if (node->parent->data.compare(node->data) > 0) {
 					node->right->parent = NULL;
 					root = node->right;
-				//}
-				/*else {
-					node->left->parent = NULL;
-					root = node->left;
-				}*/
 			}
 			else {
 				if (node->parent->data.compare(node->data) > 0) {
-//					node->right->parent = node->parent;
 					node->parent->left = node->right;
 				}
 				else {
-//					node->left->parent = node->parent;
 					node->parent->right = node->right;
 				}
-//				node->parent->left = node->right;
 				node->right->parent = node->parent;
 			}
-			//node = NULL;
 			delete node;
 		}
 		else {
 			if (node == root) {
-				//if (node->parent->data.compare(node->data) > 0) {
-					node->left->parent = NULL;
-					root = node->left;
-				//}
-				/*else {
-					node->left->parent = NULL;
-					root = node->left;
-				}*/
+				node->left->parent = NULL;
+				root = node->left;
 			}
 			else {
 				if (node->parent->data.compare(node->data) > 0) {
@@ -198,16 +173,7 @@ void BinaryTree::deleteWord(string word, Node* node, bool isSwitched) {
 					node->parent->right = node->left;
 				}
 				node->left->parent = node->parent;
-				/*if (node->parent->data.compare(node->data) > 0) {
-					node->parent->left = node->left;
-					node->left->parent = node->parent;
-				}
-				else {
-					node->parent->left = node->right;
-					node->left->parent = node->parent;
-				}*/
 			}
-			//node = NULL;
 			delete node;
 		}
 		if (!isSwitched)

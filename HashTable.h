@@ -19,7 +19,6 @@ class HashTable {
 		arrayOfVectors* table;
 		int tableSize;
 		unsigned hashFunction(const char* str);
-	
 };
 
 #endif
